@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>DeadLine — Решение проблем навсегда</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    body { font-family: sans-serif; background: #111; color: #eee; padding: 20px; }
+    input, textarea { width: 100%; padding: 10px; margin: 5px 0; background: #222; color: #fff; border: 1px solid #444; border-radius: 5px; }
+    button { padding: 10px 20px; background: #c00; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+    #map { height: 300px; border-radius: 10px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>DeadLine</h1>
+  <form id="orderForm">
+    <label>Кого устранить?</label>
+    <input type="text" name="target" required>
+    <label>Причина</label>
+    <textarea name="reason" required></textarea>
+    <label>Метод</label>
+    <input type="text" name="method" required>
+    <label>Когда?</label>
+    <input type="datetime-local" name="when" required>
+    <label>Где?</label>
+    <input type="text" id="location" name="where" readonly required>
+    <div id="map"></div>
+    <label>Email</label>
+    <input type="email" name="email" required>
+    <label>Пароль</label>
+    <input type="password" name="password" required>
+    <button type="submit">Заказать</button>
+  </form>
+  <div id="response"></div>
+
+  <script>
+    const map = L.map('map').setView([58.01, 56.25], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    let marker;
+    map.on('click', e => {
+      const lat = e.latlng.lat;
+      const lng = e.latlng.lng;
+      if (marker) marker.setLatLng(e.latlng);
+      else marker = L.marker(e.latlng).addTo(map);
+      document.getElementById('location').value = lat.toFixed(6) + ', ' + lng.toFixed(6);
+    });
+
+    document.getElementById('orderForm').addEventListener('submit', e => {
+      e.preventDefault();
+      document.getElementById('response').innerHTML = '<p style="color:#0f0">Данные получены. Мы вас записали (не правда).</p>';
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
