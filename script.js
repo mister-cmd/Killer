@@ -14,7 +14,7 @@ document.getElementById('orderForm').addEventListener('submit', e => {
   e.preventDefault();
   const data = Object.fromEntries(new FormData(e.target));
 
-fetch('https://killer.onrender.com/submit', {
+fetch('https://killer-1g1c.onrender.com/submit', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(data)
