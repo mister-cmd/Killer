@@ -14,11 +14,11 @@ document.getElementById('orderForm').addEventListener('submit', e => {
   e.preventDefault();
   const data = Object.fromEntries(new FormData(e.target));
 
-  fetch('https://ТВОЙ-SERVICE-NAME.onrender.com/submit', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  })
+fetch('https://killer.onrender.com/submit', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(data)
+})
   .then(r => r.json())
   .then(() => {
     document.getElementById('response').innerHTML = '<p style="color:#0f0">Данные получены. Мы вас записали (ну типа).</p>';
